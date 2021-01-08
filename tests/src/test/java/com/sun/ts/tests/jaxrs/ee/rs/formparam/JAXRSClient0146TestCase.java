@@ -42,7 +42,7 @@ public class JAXRSClient0146TestCase extends JaxrsParamClient0151 {
 
     @Deployment
     static JavaArchive deploy() {
-        return ShrinkWrap.create(JavaArchive.class)
+        return ShrinkWrap.create(JavaArchive.class,"jaxrs_ee_formparam_web.jar")
                 .addClasses(
                         com.sun.ts.tests.jaxrs.ee.rs.formparam.TSAppConfig.class,
                         com.sun.ts.tests.jaxrs.ee.rs.WebApplicationExceptionMapper.class,
@@ -55,9 +55,8 @@ public class JAXRSClient0146TestCase extends JaxrsParamClient0151 {
                         com.sun.ts.tests.jaxrs.ee.rs.ParamEntityPrototype.class,
                         com.sun.ts.tests.jaxrs.ee.rs.RuntimeExceptionMapper.class)
                 .addClass(JaxrsCommonClient.class)
-                .addClass(JaxrsParamClient0151.class)
-                .addAsResource(new StringAsset("quarkus.rest.single-default-produces=false\nquarkus.rest.default-produces=false\nquarkus.http.root-path=/jaxrs_ee_formparam_web"),"application.properties");
-    }
+                .addClass(JaxrsParamClient0151.class);
+   }
 
     private static final String ENCODED = "_%60%27%24X+Y%40%22a+a%22";
 
