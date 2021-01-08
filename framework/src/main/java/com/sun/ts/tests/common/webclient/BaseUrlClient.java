@@ -24,7 +24,6 @@ import java.util.Enumeration;
 import java.util.Properties;
 
 import org.apache.http.client.protocol.HttpClientContext;
-import org.opentest4j.AssertionFailedError;
 
 import com.sun.ts.lib.util.TestUtil;
 import com.sun.ts.tests.common.webclient.http.HttpRequest;
@@ -596,7 +595,7 @@ public abstract class BaseUrlClient {
     }
 
     // QUARKUS:
-    static public class Fault extends AssertionFailedError {
+    static public class Fault extends AssertionError {
         public Fault(String message) {
             super(message);
         }

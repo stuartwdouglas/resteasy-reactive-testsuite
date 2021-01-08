@@ -31,8 +31,7 @@ import javax.ws.rs.core.Response;
 
 import org.apache.http.Header;
 import org.apache.http.client.protocol.HttpClientContext;
-import org.junit.jupiter.api.AfterEach;
-import org.opentest4j.AssertionFailedError;
+import org.junit.After;
 
 import com.sun.ts.lib.util.TestUtil;
 import com.sun.ts.tests.common.webclient.TestFailureException;
@@ -302,7 +301,7 @@ public abstract class JAXRSCommonClient /* QUARKUS: extends ServiceEETest */ {
      * @exception Fault
      *            if an error occurs
      */
-    @AfterEach
+    @After
     public void cleanup() throws Fault {
         TestUtil.logMsg("[JAXRSCommonClient] Test cleanup OK");
         // QUARKUS
@@ -1121,7 +1120,7 @@ public abstract class JAXRSCommonClient /* QUARKUS: extends ServiceEETest */ {
     }
 
     // QUARKUS:
-    static public class Fault extends AssertionFailedError {
+    static public class Fault extends AssertionError {
         public Fault(String message) {
             super(message);
         }

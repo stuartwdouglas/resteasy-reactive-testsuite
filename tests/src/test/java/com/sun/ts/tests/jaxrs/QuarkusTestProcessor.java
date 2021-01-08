@@ -146,7 +146,7 @@ public class QuarkusTestProcessor {
                     writer.write("import java.util.function.Supplier;\n");
                     writer.write("import org.jboss.shrinkwrap.api.ShrinkWrap;\n");
                     writer.write("import org.jboss.shrinkwrap.api.spec.JavaArchive;\n");
-                    writer.write("import org.junit.jupiter.api.Test;\n");
+                    writer.write("import org.junit.Test;\n");
                     writer.write("import org.junit.jupiter.api.extension.RegisterExtension;\n");
                     writer.write("import io.quarkus.test.QuarkusUnitTest;\n\n");
                     // let's not write the original line twice
@@ -172,7 +172,7 @@ public class QuarkusTestProcessor {
                     writeExtension(writer, resources);
                     // let's not write the original line twice
                     continue;
-                } else if (line.equals("  @org.junit.jupiter.api.Test")) {
+                } else if (line.equals("  @org.junit.Test")) {
                     line = "  @Test";
                 }
                 writer.write(line);

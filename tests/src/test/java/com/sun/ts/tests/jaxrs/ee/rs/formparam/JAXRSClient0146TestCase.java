@@ -16,56 +16,54 @@
 
 package com.sun.ts.tests.jaxrs.ee.rs.formparam;
 
-import java.util.function.Supplier;
-
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response.Status;
 
+import com.sun.ts.tests.jaxrs.common.JAXRSCommonClient;
+import com.sun.ts.tests.jaxrs.common.client.JaxrsCommonClient;
+import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.Test;
 
 import com.sun.ts.tests.jaxrs.ee.rs.JaxrsParamClient0151;
+import org.junit.runner.RunWith;
 
-import io.quarkus.test.QuarkusUnitTest;
 
 /*
  * @class.setup_props: webServerHost;
  *                     webServerPort;
  *                     ts_home;
  */
-@org.junit.jupiter.api.extension.ExtendWith(com.sun.ts.tests.TckExtention.class)
-public class JAXRSClient0146 extends JaxrsParamClient0151 {
+@RunWith(Arquillian.class)
+public class JAXRSClient0146TestCase extends JaxrsParamClient0151 {
 
-    @RegisterExtension
-    static QuarkusUnitTest test = new QuarkusUnitTest()
-            .overrideConfigKey("quarkus.rest.single-default-produces", "false")
-            .overrideConfigKey("quarkus.rest.default-produces", "false")
-            .overrideConfigKey("quarkus.http.root-path", "/jaxrs_ee_formparam_web")
-            .setArchiveProducer(new Supplier<JavaArchive>() {
-                @Override
-                public JavaArchive get() {
-                    return ShrinkWrap.create(JavaArchive.class)
-                            .addClasses(
-                                    com.sun.ts.tests.jaxrs.ee.rs.formparam.TSAppConfig.class,
-                                    com.sun.ts.tests.jaxrs.ee.rs.WebApplicationExceptionMapper.class,
-                                    com.sun.ts.tests.jaxrs.ee.rs.ParamEntityWithValueOf.class,
-                                    com.sun.ts.tests.jaxrs.ee.rs.ParamEntityThrowingExceptionGivenByName.class,
-                                    com.sun.ts.tests.jaxrs.ee.rs.ParamEntityWithFromString.class,
-                                    com.sun.ts.tests.jaxrs.ee.rs.ParamEntityThrowingWebApplicationException.class,
-                                    com.sun.ts.tests.jaxrs.ee.rs.ParamEntityWithConstructor.class,
-                                    com.sun.ts.tests.jaxrs.ee.rs.formparam.FormParamTest.class,
-                                    com.sun.ts.tests.jaxrs.ee.rs.ParamEntityPrototype.class,
-                                    com.sun.ts.tests.jaxrs.ee.rs.RuntimeExceptionMapper.class);
-                }
-            });
+    @Deployment
+    static JavaArchive deploy() {
+        return ShrinkWrap.create(JavaArchive.class)
+                .addClasses(
+                        com.sun.ts.tests.jaxrs.ee.rs.formparam.TSAppConfig.class,
+                        com.sun.ts.tests.jaxrs.ee.rs.WebApplicationExceptionMapper.class,
+                        com.sun.ts.tests.jaxrs.ee.rs.ParamEntityWithValueOf.class,
+                        com.sun.ts.tests.jaxrs.ee.rs.ParamEntityThrowingExceptionGivenByName.class,
+                        com.sun.ts.tests.jaxrs.ee.rs.ParamEntityWithFromString.class,
+                        com.sun.ts.tests.jaxrs.ee.rs.ParamEntityThrowingWebApplicationException.class,
+                        com.sun.ts.tests.jaxrs.ee.rs.ParamEntityWithConstructor.class,
+                        com.sun.ts.tests.jaxrs.ee.rs.formparam.FormParamTest.class,
+                        com.sun.ts.tests.jaxrs.ee.rs.ParamEntityPrototype.class,
+                        com.sun.ts.tests.jaxrs.ee.rs.RuntimeExceptionMapper.class)
+                .addClass(JaxrsCommonClient.class)
+                .addClass(JaxrsParamClient0151.class)
+                .addAsResource(new StringAsset("quarkus.rest.single-default-produces=false\nquarkus.rest.default-produces=false\nquarkus.http.root-path=/jaxrs_ee_formparam_web"),"application.properties");
+    }
 
     private static final String ENCODED = "_%60%27%24X+Y%40%22a+a%22";
 
     private static final String DECODED = "_`'$X Y@\"a a\"";
 
-    public JAXRSClient0146() {
+    public JAXRSClient0146TestCase() {
         setContextRoot("/jaxrs_ee_formparam_web/FormParamTest");
     }
 
@@ -77,7 +75,7 @@ public class JAXRSClient0146 extends JaxrsParamClient0151 {
      * any test configuration.
      */
     public static void main(String[] args) {
-        JAXRSClient0146 theTests = new JAXRSClient0146();
+        JAXRSClient0146TestCase theTests = new JAXRSClient0146TestCase();
         theTests.run(args);
     }
 

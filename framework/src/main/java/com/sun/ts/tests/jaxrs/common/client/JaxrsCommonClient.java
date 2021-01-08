@@ -27,7 +27,6 @@ import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
-import org.junit.jupiter.api.AfterEach;
 
 import com.sun.ts.lib.util.BASE64Encoder;
 import com.sun.ts.lib.util.TestUtil;
@@ -35,6 +34,7 @@ import com.sun.ts.tests.common.webclient.TestFailureException;
 import com.sun.ts.tests.common.webclient.validation.CheckOneOfStatusesTokenizedValidator;
 import com.sun.ts.tests.jaxrs.common.JAXRSCommonClient;
 import com.sun.ts.tests.jaxrs.common.client.JaxrsWebTestCase.Execution;
+import org.junit.After;
 
 public class JaxrsCommonClient extends JAXRSCommonClient {
 
@@ -230,7 +230,7 @@ public class JaxrsCommonClient extends JAXRSCommonClient {
         }
     }
 
-    @AfterEach
+    @After
     public void cleanup() throws Fault {
         // The client.close has to be called on cleanup, because after invoke,
         // some methods are called and resources might not be available then
